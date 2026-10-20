@@ -75,6 +75,14 @@
     text-decoration: none; transition: background .2s;
   }
   .nav-cta:hover { background: var(--teal-dark); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; }
+  .nav-login {
+    color: var(--teal-dark);
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: background .2s;
+  }
+  .nav-login:hover { background: var(--teal-xlight); }
 
   /* ── HERO ── */
   .hero {
@@ -362,6 +370,9 @@
     .split.reverse { direction: ltr; }
     nav { padding: 0 1rem; }
     .nav-badge { display: none; }
+    .logo span { display: none; }
+    .nav-login { padding: 8px 10px; }
+    .nav-cta { padding: 8px 12px; }
     section { padding: 56px 1.25rem; }
     .hero { padding: 56px 1.25rem 40px; }
     .score-demo { max-width: 100%; }
@@ -375,7 +386,10 @@
   <nav>
     <a href="#" class="logo">Qomiq <span>Intelligence Commerciale</span></a>
     <span class="nav-badge">Accès bêta — places limitées</span>
-    <a href="#acces" class="nav-cta">Demander l'accès</a>
+    <div class="nav-actions">
+      <a href="https://app.qomiq.fr/login" class="nav-login">Se connecter</a>
+      <a href="#acces" class="nav-cta">Demander l'accès</a>
+    </div>
   </nav>
 </div>
 
@@ -691,6 +705,8 @@
       <a href="mailto:samy.boukezzata@gmail.com">samy.boukezzata@gmail.com</a>
       &nbsp;·&nbsp;
       <a href="mailto:samy.boukezzata@gmail.com?subject=Demande accès bêta">Demander l'accès bêta</a>
+      &nbsp;·&nbsp;
+      <a href="https://app.qomiq.fr/login">Se connecter</a>
     </span>
   </div>
 </footer>
