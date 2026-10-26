@@ -364,6 +364,10 @@
     display: flex; justify-content: space-between;
     align-items: center; flex-wrap: wrap; gap: 16px;
   }
+  /* Pages légales, hébergées par l'application. */
+  .footer-legal { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 12px; }
+  .footer-legal a { color: var(--muted); }
+  .footer-legal a:hover { color: var(--fg); }
 
   /* ── SPLIT LAYOUT ── */
   .split {
@@ -712,6 +716,11 @@
       &nbsp;·&nbsp;
       <a href="https://app.qomiq.fr/login">Se connecter</a>
     </span>
+    <div class="footer-legal">
+      <a href="https://app.qomiq.fr/legal/mentions">Mentions légales</a>
+      <a href="https://app.qomiq.fr/legal/confidentialite">Confidentialité</a>
+      <a href="https://app.qomiq.fr/legal/cgu">CGU</a>
+    </div>
   </div>
 </footer>
 
