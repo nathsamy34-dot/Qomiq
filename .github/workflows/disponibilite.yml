@@ -1,0 +1,49 @@
+name: Disponibilité
+
+# Toutes les 10 minutes : vérifie que l'application (app.qomiq.fr, conteneur
+# Scaleway) et la vitrine (qomiq.fr) répondent. En cas d'échec, GitHub envoie
+# un email au compte qui a fusionné ce fichier (réglage par défaut :
+# Settings → Notifications → Actions).
+#
+# Placé ici plutôt que dans Qomiq-api : ce dépôt est public, donc ses minutes
+# d'Actions sont gratuites. Contrepartie : GitHub désactive les tâches
+# planifiées d'un dépôt public après 60 jours sans commit (il prévient par
+# email avant). Il suffit alors de les réactiver depuis l'onglet Actions.
+#
+# GitHub peut décaler les tâches planifiées de quelques minutes aux heures
+# chargées.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: disponibilite
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  verification:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Application et vitrine
+        run: |
+          # Trois essais espacés de 20 s par adresse : le conteneur peut
+          # mettre quelques secondes à se réveiller.
+          verifier() {
+            for essai in 1 2 3; do
+              if reponse=$(curl -fsS --max-time 30 "$1") && echo "$reponse" | grep -q "$2"; then
+                echo "OK    $1"; return 0
+              fi
+              sleep 20
+            done
+            echo "::error::$1 ne répond pas correctement."; return 1
+          }
+          echec=0
+          verifier https://app.qomiq.fr/api/health '"status":"ok"' || echec=1
+          verifier https://app.qomiq.fr/ '<html' || echec=1
+          verifier https://qomiq.fr/ 'Qomiq' || echec=1
+          exit $echec
